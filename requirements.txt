@@ -2,6 +2,7 @@ Flask
 gTTS
 moviepy
 imageio-ffmpeg
+imageio[ffmpeg]
 Pillow
 waitress
 pyttsx3
