@@ -8,6 +8,8 @@ from scripts.generate_script import generate_script
 from scripts.generate_tts import generate_tts
 from scripts.generate_animated_video import generate_animated_video
 from waitress import serve
+import test_import  # TEMP: Just to test
+
 
 app = Flask(__name__)
 os.makedirs("static", exist_ok=True)
