@@ -4,3 +4,4 @@ moviepy
 imageio[ffmpeg]
 Pillow
 waitress
+pyttsx3
