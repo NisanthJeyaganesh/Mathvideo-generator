@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Math Video Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      background: radial-gradient(circle at top left, #1f1c2c, #928dab);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .glow-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 50px 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      max-width: 700px;
+      width: 100%;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1.2s ease;
+    }
+
+    h2 {
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+    }
+
+    .input-group input {
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      background-color: #ffffff11;
+      color: #fff;
+    }
+
+    input::placeholder {
+      filter: blur(1px);
+      color: rgba(255, 255, 255, 0.5);
+      font-style: italic;
+    }
+
+    .btn-glow {
+      background: linear-gradient(135deg, #ff6ec4, #7873f5);
+      border: none;
+      color: white;
+      font-weight: 600;
+      border-radius: 12px;
+      padding: 12px 24px;
+      transition: 0.3s ease;
+      box-shadow: 0 0 12px rgba(255, 110, 196, 0.6);
+    }
+
+    .btn-glow:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(120, 115, 245, 0.9);
+    }
+
+    .video-card {
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    video {
+      border-radius: 10px;
+      border: 2px solid #fff;
+    }
+
+    .alert {
+      font-weight: 500;
+    }
+
+    .floating-circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.25;
+      animation: float 12s infinite ease-in-out alternate;
+      z-index: 0;
+    }
+
+    .circle1 {
+      width: 300px;
+      height: 300px;
+      background: #ff6ec4;
+      top: -100px;
+      left: -100px;
+    }
+
+    .circle2 {
+      width: 200px;
+      height: 200px;
+      background: #7873f5;
+      bottom: -80px;
+      right: -80px;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        transform: translateY(30px) scale(1.1);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Circles -->
+  <div class="floating-circle circle1"></div>
+  <div class="floating-circle circle2"></div>
+
+  <!-- Main UI -->
+  <div class="glow-container text-center">
+    <h2>✨ Math Video Generator</h2>
+
+    <!-- Input Form -->
+    <form method="POST" class="mb-4">
+      <div class="input-group mb-3">
+        <input type="text" name="prompt" class="form-control form-control-lg" placeholder="Type a math expression like 8 × 7" required />
+        <button type="submit" class="btn btn-glow">Generate 🎬</button>
+      </div>
+    </form>
+
+    <!-- Error Display -->
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+    {% endif %}
+
+    <!-- Video Display -->
+    {% if video_ready %}
+    <div class="video-card">
+      <h5 class="text-white mb-3">✅ Your video is ready!</h5>
+      
+      <!-- Video Player -->
+      <video width="100%" controls>
+        <source src="{{ url_for('serve_video', filename=video_filename) }}" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- ✅ Download Button -->
+      <a href="{{ url_for('serve_video', filename=video_filename) }}" download class="btn btn-glow mt-3">
+        ⬇️ Download Video
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
