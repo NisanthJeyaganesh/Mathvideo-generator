@@ -1,6 +1,6 @@
 Flask
 gTTS
-moviepy
+moviepy.editor
 imageio[ffmpeg]
 Pillow
 waitress
