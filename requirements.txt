@@ -3,3 +3,4 @@ gTTS
 moviepy
 imageio[ffmpeg]
 Pillow
+waitress
