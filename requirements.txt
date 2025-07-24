@@ -1,7 +1,8 @@
 Flask
 gTTS
-moviepy.editor
+moviepy
 imageio[ffmpeg]
 Pillow
 waitress
 pyttsx3
+moviepy.editor
