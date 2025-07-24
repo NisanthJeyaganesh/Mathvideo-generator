@@ -1,3 +1,6 @@
+import sys
+print(sys.executable)
+print(sys.path)
 from flask import Flask, render_template, request, send_file
 import os
 import time
